@@ -6,4 +6,8 @@ module.exports = function(app) {
       target: "http://localhost:8080/"
     })
   );
+
+  app.use(proxy('/api/*', {
+    "target":"http://localhost:5000"
+  }))
 };
