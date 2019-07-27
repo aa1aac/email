@@ -24,10 +24,12 @@ create a file called dev.js in config folder. After that, add these to the file.
 
 ```
 module.exports = {
-    googleClientID:"" , // add your googleClientId here for Oauth
-    googleClientSecret: "", // add your googleClientSecret here for Oauth
-    mongoURI:"", // add your mongoDB URI
-    cookieKey:"" // add cookie key for cookie session
+    googleClientID:"" ,                // add your googleClientId here for Oauth
+    googleClientSecret: "",           // add your googleClientSecret here for Oauth
+    mongoURI:"",                      // add your mongoDB URI
+    cookieKey:"",                    // add cookie key for cookie session
+    stripePublishableKey:"",        // add stripe publishable key
+    stripeSecretKey:""              // add stripe secret key
   };
 
 ```
