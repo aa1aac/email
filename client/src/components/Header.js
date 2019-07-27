@@ -11,7 +11,7 @@ class Header extends Component {
             </a>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
               <li>
-                <a href="sass.html">Login with Google</a>
+                <a href="/auth/google">Login with Google</a>
               </li>
             </ul>
           </div>

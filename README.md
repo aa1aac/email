@@ -2,7 +2,7 @@
 
 ## It is an app which helps the user to send email survey.
 
-### Stack used
+### Technologies used
 
 MERN stack
 
@@ -14,7 +14,7 @@ Run the following command:
 npm run dev
 ```
 
-### ** Note the files you really need to change **
+### ** Note the files you really need to change to run the app**
 
 #### On development build
 
@@ -27,7 +27,7 @@ module.exports = {
     googleClientID:"" , // add your googleClientId here for Oauth
     googleClientSecret: "", // add your googleClientSecret here for Oauth
     mongoURI:"", // add your mongoDB URI
-    cookieKey:"" // add coolie key for cookie session
+    cookieKey:"" // add cookie key for cookie session
   };
 
 ```
