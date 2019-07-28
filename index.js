@@ -27,4 +27,4 @@ require("./routes/authRoutes")(app); // for routing authRoutes
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log("deployed"));
-// 90
+// 96

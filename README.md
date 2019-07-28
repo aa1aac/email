@@ -1,6 +1,6 @@
 ## Email Survey
 
-## It is an app which helps the user to send email survey.
+It is an app which helps the user to send email survey.
 
 ### Technologies used
 
@@ -36,6 +36,11 @@ module.exports = {
 
 <br>
 These are just the api keys that you need to create and add in the file.
+<br>
+Also create two files called ".env.development" and ".env.production" in client directory and add the following:
+```
+REACT_APP_STRIPE_KEY=   // add stripe publishable key here
+```
 
 #### On production build
 
