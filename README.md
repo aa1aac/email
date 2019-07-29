@@ -38,6 +38,9 @@ module.exports = {
 These are just the api keys that you need to create and add in the file.
 <br>
 Also create two files called ".env.development" and ".env.production" in client directory and add the following:
+
+<br>
+
 ```
 REACT_APP_STRIPE_KEY=   // add stripe publishable key here
 ```
