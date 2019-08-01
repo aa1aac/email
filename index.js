@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const keys = require("./config/keys");
 
 require("./models/User"); // user model mongoose
+require("./models/Survey"); //survey model
 
 require("./services/passport"); //passport middleware
 
@@ -39,4 +40,4 @@ if (process.env.NODE_ENV === "production") {
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log("deployed"));
-// 111
+// 118
