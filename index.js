@@ -28,6 +28,7 @@ app.use(passport.session());
 
 require("./routes/authRoutes")(app); // for routing authRoutes
 require("./routes/billingRoutes")(app); // for routing of billing
+require("./routes/surveyRoutes")(app); // for surveyRoutes
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -40,4 +41,4 @@ if (process.env.NODE_ENV === "production") {
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log("deployed"));
-// 118
+// 122
