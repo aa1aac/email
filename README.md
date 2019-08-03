@@ -29,7 +29,8 @@ module.exports = {
     mongoURI:"",                      // add your mongoDB URI
     cookieKey:"",                    // add cookie key for cookie session
     stripePublishableKey:"",        // add stripe publishable key
-    stripeSecretKey:""              // add stripe secret key
+    stripeSecretKey:"",             // add stripe secret key
+    mailgunPublishableKey:""       // add mailgun publishable key
   };
 
 ```
