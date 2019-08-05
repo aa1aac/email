@@ -5,8 +5,9 @@ import * as actions from "../actions";
 
 import Header from "./Header";
 import Landing from "./Landing";
-const Dashboard = () => <h2>Dashboard</h2>;
-const SurveyNew = () => <h2>SurveyNew</h2>;
+import Dashboard from "./Dashboard";
+import NewMail from "./NewMail";
+
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
@@ -19,8 +20,8 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path="/" component={Landing} />
-            <Route exact path="/surveys" component={Dashboard} />
-            <Route path="/surveys/new" component={SurveyNew} />
+            <Route exact path="/emails" component={Dashboard} />
+            <Route path="/emails/new" component={NewMail} />
           </div>
         </BrowserRouter>
       </div>

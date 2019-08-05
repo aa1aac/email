@@ -8,14 +8,22 @@ class Mailer extends mailgun {
 
     this.data = {
       from: "Emaily <no-reply@emaily.herokuapp.com>",
-      to: this.formatAdresses(recipients),
+      to: this.formatAdresses(recipients).join(", "),
       subject: subject,
       html: content
     };
+
+    this.addClickTracking()
   }
 
+  addClickTracking() {
+     
+   }
+
   formatAdresses(recipients) {
-    return recipients.join(" ,");
+    return recipients.map(({ email }) => {
+      return email;
+    });
   }
 }
 

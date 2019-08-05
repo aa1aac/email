@@ -2,8 +2,12 @@ const mongoose = require("mongoose");
 
 const requireLogin = require("../middlewares/requireLogin");
 const requireCredits = require("../middlewares/requireCredits");
-const Mailer = require("../services/Mailer");
-const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
+const keys = require("../config/keys");
+
+const mailgun = require("mailgun-js")({
+  apiKey: keys.mailgunPublicKey,
+  domain: keys.mailgunDomain
+});
 
 const Survey = mongoose.model("surveys");
 
@@ -11,15 +15,30 @@ module.exports = app => {
   app.post("/api/surveys", requireLogin, requireCredits, (req, res) => {
     const { title, subject, body, recipients } = req.body;
 
-    const survey = new Survey({
+    const mail = new Survey({
       title,
       subject,
       body,
-      recepients: recepients.split(",").map(email => ({ email })),
+      recepients,
       _user: req.user.id,
       dateSent: Date.now()
     });
 
-    const mailer = new Mailer(survey, surveyTemplate(survey));
+    const data = {
+      from: "Excited User <me@samples.mailgun.org>",
+      to: recipients,
+      subject: sunject,
+      text: body
+    };
+
+    mailgun.messages().send(data, (error, body) => {
+      console.log(body);
+      if (error) {
+        return res.json({ error: "message not sent!" });
+      }
+      mail.save().then(data => {
+        return res.redirect("/surveys");
+      });
+    });
   });
 };
