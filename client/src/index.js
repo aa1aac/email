@@ -2,7 +2,8 @@ import ReactDOM from "react-dom";
 import React from "react";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import "materialize-css/dist/css/materialize.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
 import reduxThunk from "redux-thunk";
 
 import App from "./components/App";
@@ -16,5 +17,3 @@ ReactDOM.render(
   </Provider>,
   document.querySelector("#root")
 );
-
-

@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  Badge
+} from "reactstrap";
 
 import Payments from "./Payments";
 
@@ -11,42 +20,56 @@ class Header extends Component {
         return;
       case false:
         return (
-          <li>
-            <a href="/auth/google">Login with google</a>
+          <li className="nav-item">
+            <a className="nav-link" href="/auth/google">
+              Login with google
+            </a>
           </li>
         );
       default:
         return [
-          <li key="1">
-            <Payments />
-          </li>,
-          <li key="3" style={{ margin: "0 10px" }}>
-            {" "}
-            Credits: {this.props.auth.credits}{" "}
-          </li>,
-          <li key="2">
-            <a href="/api/logout">Logout</a>
-          </li>
+          <NavItem key="1">
+            <Payments className="btn btn-primary" />
+          </NavItem>,
+          <NavItem key="2" style={{ margin: "8px 0" }}>
+            <Badge color="light">Credits:{this.props.auth.credits}</Badge>
+          </NavItem>,
+          <NavItem className="nav-item" key="3">
+            <a className="nav-link" href="/api/logout">
+              Logout
+            </a>
+          </NavItem>
         ];
     }
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
   }
   render() {
     return (
       <div>
-        <nav>
-          <div className="nav-wrapper container">
-            <Link
-              to={this.props.auth ? "./emails" : "/"}
-              href="/"
-              className="left brand-logo"
-            >
-              Emaily
-            </Link>
-            <ul id="nav-mobile" className="right hide-on-med-and-down">
+        <Navbar color="primary" dark expand="md">
+          <NavbarBrand href={this.props.auth ? "./emails" : "/"}>
+            Emaily
+          </NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
               {this.renderContent()}
-            </ul>
-          </div>
-        </nav>
+            </Nav>
+          </Collapse>
+        </Navbar>
       </div>
     );
   }
