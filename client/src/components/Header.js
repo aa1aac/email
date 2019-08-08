@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+
 import {
   Collapse,
   Navbar,
@@ -29,7 +29,7 @@ class Header extends Component {
       default:
         return [
           <NavItem key="1">
-            <Payments className="btn btn-primary" />
+            <Payments />
           </NavItem>,
           <NavItem key="2" style={{ margin: "8px 0" }}>
             <Badge color="light">Credits:{this.props.auth.credits}</Badge>
@@ -59,7 +59,7 @@ class Header extends Component {
   render() {
     return (
       <div>
-        <Navbar color="primary" dark expand="md">
+        <Navbar color="dark" dark expand="md">
           <NavbarBrand href={this.props.auth ? "./emails" : "/"}>
             Emaily
           </NavbarBrand>

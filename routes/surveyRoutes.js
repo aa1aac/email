@@ -12,14 +12,14 @@ const mailgun = require("mailgun-js")({
 const Survey = mongoose.model("surveys");
 
 module.exports = app => {
-  app.post("/api/surveys", requireLogin, requireCredits, (req, res) => {
+  app.post("/api/send", requireLogin, requireCredits, (req, res) => {
     const { title, subject, body, recipients } = req.body;
 
     const mail = new Survey({
       title,
       subject,
       body,
-      recepients,
+      recipients,
       _user: req.user.id,
       dateSent: Date.now()
     });
@@ -27,17 +27,18 @@ module.exports = app => {
     const data = {
       from: "Excited User <me@samples.mailgun.org>",
       to: recipients,
-      subject: sunject,
+      subject: subject,
       text: body
     };
 
     mailgun.messages().send(data, (error, body) => {
       console.log(body);
       if (error) {
+        console.log(error);
         return res.json({ error: "message not sent!" });
       }
       mail.save().then(data => {
-        return res.redirect("/surveys");
+        return res.redirect("/emails");
       });
     });
   });
