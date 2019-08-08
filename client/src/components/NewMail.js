@@ -7,7 +7,9 @@ class NewMail extends Component {
     this.state = {
       recipient: "",
       subject: "",
-      body: ""
+      body: "",
+      message: null,
+      spinner: false
     };
   }
 
@@ -15,8 +17,48 @@ class NewMail extends Component {
     this.setState({ [event.target.id]: event.target.value });
   };
 
-  handleSubmit(event) {}
+  handleSubmit = event => {
+    this.setState({ spinner: true });
+    axios
+      .post("/api/send", {
+        recipient: this.state.recipient,
+        subject: this.state.subject,
+        body: this.state.body
+      })
+      .then(res => {
+        if (res.data.error) {
+          this.setState({ message: res.data.error });
+        }
+      });
+    this.setState({ spinner: false });
+    event.preventDefault();
+  };
+
   render() {
+    const DisplayAlert = () => {
+      if (this.state.message) {
+        return (
+          <div>
+            <br />
+            <div className="alert alert-primary" role="alert">
+              {this.state.message}
+            </div>
+          </div>
+        );
+      }
+      return <div />;
+    };
+
+    const Spinner = () => {
+      if (this.state.spinner) {
+        return (
+          <div className="spinner-border text-primary" role="status">
+            <span className="sr-only">Sending...</span>
+          </div>
+        );
+      }
+      return null;
+    };
     return (
       <div className="container">
         <h4 className="text-center">Compose</h4>
@@ -66,8 +108,12 @@ class NewMail extends Component {
               name="body"
             />
           </div>
-
-          <button className="btn btn-primary">Submit</button>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>{" "}
+          <Spinner />
+          <br />
+          <DisplayAlert />
         </form>
       </div>
     );
