@@ -5,7 +5,7 @@ const requireCredits = require("../middlewares/requireCredits");
 const keys = require("../config/keys");
 
 const mailgun = require("mailgun-js")({
-  apiKey: keys.mailgunPublicKey,
+  apiKey: keys.mailgunPrivateKey,
   domain: keys.mailgunDomain
 });
 
@@ -13,20 +13,20 @@ const Survey = mongoose.model("surveys");
 
 module.exports = app => {
   app.post("/api/send", requireLogin, requireCredits, (req, res) => {
-    const { title, subject, body, recipients } = req.body;
-
+    const { subject, body, recipient } = req.body;
+    console.log(subject, body, recipient);
     const mail = new Survey({
-      title,
+      title: subject,
       subject,
       body,
-      recipients,
+      recipient,
       _user: req.user.id,
       dateSent: Date.now()
     });
 
     const data = {
       from: "Excited User <me@samples.mailgun.org>",
-      to: recipients,
+      to: recipient,
       subject: subject,
       text: body
     };
@@ -38,7 +38,7 @@ module.exports = app => {
         return res.json({ error: "message not sent!" });
       }
       mail.save().then(data => {
-        return res.redirect("/emails");
+        return res.json({ message: "message sent" });
       });
     });
   });

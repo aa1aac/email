@@ -9,7 +9,8 @@ class NewMail extends Component {
       subject: "",
       body: "",
       message: null,
-      spinner: false
+      spinner: false,
+      error: null
     };
   }
 
@@ -18,7 +19,7 @@ class NewMail extends Component {
   };
 
   handleSubmit = event => {
-    this.setState({ spinner: true });
+    this.setState({ spinner: true, message: null });
     axios
       .post("/api/send", {
         recipient: this.state.recipient,
@@ -26,8 +27,16 @@ class NewMail extends Component {
         body: this.state.body
       })
       .then(res => {
+        if (res.data.message) {
+          this.setState({
+            message: res.data.message,
+            recipient: "",
+            subject: "",
+            body: ""
+          });
+        }
         if (res.data.error) {
-          this.setState({ message: res.data.error });
+          this.setState({ error: res.data.error });
         }
       });
     this.setState({ spinner: false });
@@ -42,6 +51,16 @@ class NewMail extends Component {
             <br />
             <div className="alert alert-primary" role="alert">
               {this.state.message}
+            </div>
+          </div>
+        );
+      }
+      if (this.state.error) {
+        return (
+          <div>
+            <br />
+            <div className="alert alert-primary" role="alert">
+              {this.state.error}
             </div>
           </div>
         );

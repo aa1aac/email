@@ -60,7 +60,7 @@ class Header extends Component {
     return (
       <div>
         <Navbar color="dark" dark expand="md">
-          <NavbarBrand href={this.props.auth ? "./emails" : "/"}>
+          <NavbarBrand href={this.props.auth ? "/emails" : "/"}>
             Emaily
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
