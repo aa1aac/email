@@ -14,7 +14,7 @@ const Survey = mongoose.model("surveys");
 module.exports = app => {
   app.post("/api/send", requireLogin, requireCredits, (req, res) => {
     const { subject, body, recipient } = req.body;
-    console.log(subject, body, recipient);
+
     const mail = new Survey({
       title: subject,
       subject,
@@ -38,8 +38,20 @@ module.exports = app => {
         return res.json({ error: "message not sent!" });
       }
       mail.save().then(data => {
-        return res.json({ message: "message sent" });
+        req.user.credits -= 1;
+        req.user
+          .save()
+          // Users.findByIdAndUpdate(req.user._id, { credits: req.user.credits-- })
+          .then(() => {
+            return res.json({ message: "message sent" });
+          });
       });
+    });
+  });
+
+  app.get("/api/sent", (req, res) => {
+    Survey.find({ _user: req.user._id }).then(sentEmails => {
+      res.json(sentEmails);
     });
   });
 };
